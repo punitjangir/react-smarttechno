@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
 import Selectnew from './components/SelectNew';
 import fire from './config/Fire';
-import DateNew from './components/DatePicker1'
+import DateNew from './components/DatePicker1';
+import SelectBilling from './components/SelectBilling'
 import "react-datepicker/dist/react-datepicker.css";
+import SelectPay from './components/SelectPay';
+import SelectAssign from './components/SelectAssign';
+import SelectServ from './components/SelectServ';
+import SelectArea from './components/SelectArea';
+import SelectStat from './components/SelectStat';
 
 document.body.style = 'background: ;';
 
 var dataaa = [];
 var mapar = [];
 var ttest = [];
+var crt  = [];
+
+// function values(){
+//     var b = document.getElementById('name');
+
+//     alert(b);
+// }
+// class buttonTes extends Component {
+//     valuesT = () => {
+//         console.log('this is : ' , this);
+//     }
+// }
 
 
 
 
 class Home extends Component {
 
-    
+    valuesT = () => {
+        // var b = document.getElementById('name');
+
+        alert('home vale : ' +crt.length);
+    }
         
 
     constructor(props){
@@ -97,11 +119,19 @@ if (authData) {
             this.setState({ selectedEvent: null })
         }
     }
-  
 
+   
+  
+    
+    
     render (){
         
+        
+       const {rt1} = this.state;
+       
+
         return(
+            
             <div class = "col-md-12" style = {{backgroundColor : "#777474"}} >
             
             
@@ -116,7 +146,7 @@ if (authData) {
                 
             <div class="form-group">
                 <label>Name</label>
-                <input className='filter-input' type="text"class="form-control"  placeholder="Enter name " />
+                <input className='filter-input' type="text"class="form-control "  placeholder="Enter name "   />
             </div>
             <div class="form-group" > 
                     <label>Date</label>
@@ -131,46 +161,102 @@ if (authData) {
                 </div>
             <div class="form-group">
             <label>Mobile Number</label>
-                <input  class="form-control"  placeholder="Enter Mobile Numbe" type = "number" /> 
+                <input   class="form-control"  placeholder="Enter Mobile Numbe" type = "number" /> 
+            </div>
+         
+
+            {/* area */}
+
+            <div class="form-group">
+                <label>Area</label>
+                <SelectArea
+                
+                 />
+
+
+            
+
             </div>
             <div class="form-group">
-            <label >Area</label>
-                <select class="form-control" id = "selecttex">
-                    <script>
-                    
-                    
-
-                    </script>
-                </select>
+            <label>Address line 1</label>
+            <input class = "form-control" placeholder = "Detailed Adress" type = "text" />
             </div>
-            <div class ="form-group">
-            <label >Assign To</label>
-            <select class="form-control" >
-            <option>hii</option>
-             <option>hii</option>
-             <option>3</option>
-                    </select>
 
+            {/* service type */}
 
-            </div>
+            <div class="form-group">
+                <label>Service Type</label>
+            <SelectServ id = "name"
                 
+            onChange =     {() => this.setState({crt})}
+            onChange = {this.valuesT}
+            />
             
-                
+            </div>
+            <div class="form-group">
+                <label>Service Info</label>
+            <input class = "form-control" placeholder = "Service Info" type = "text " />
+            </div>
+
+            {/* Assign */}
+
+            <div class="form-group">
+                <label>Assign To</label>
+                <SelectAssign/>
+            </div>
+            {/* status */}
+
+
+            <div class="form-group">
+                <label>Payment Status</label>
+                <SelectPay
+
+                />
+            </div>
+
+            {/* Priority */}
+
+            <div class="form-group">
+                <label>Priority</label>
+                <Selectnew />
+            </div>
+
+
+            {/* billing */}
+
+         
+            <div class="form-group">
+                <label>Billing</label>
+
+            <SelectBilling/>
+            </div>
+
+            {/* payment status */}
+
+
+            <div class="form-group">
+                <label>Status</label>
+                <SelectStat/>
+            </div>
+
+
+             <div class="form-group">
+                 <label> Remarks</label>
+                 <input class = "form-control" type = "text" placeholder = "Remarks" />
+            </div>   
+            
+                <div class="form-group">
+                    <label></label>
+                    <label></label>
+                    <button class = "form-control"  type = "button"  onClick={this.props.ercalert}>
+                            Submit
+                    </button>
+                </div>
+                <label></label>
             </form> 
 
-            <div>
-                <label>Select Test</label>
-
-            <Selectnew
-        value={this.state}
-        onChange={this.handleChange}
-        isMulti
-        isSearchable
-        options={mapar}
-        
-        
-      />
-            </div>
+           <label></label>
+            
 
             </div>
             
@@ -178,5 +264,8 @@ if (authData) {
             </div>
         );
     }
+    
 }
 export default Home;
+
+

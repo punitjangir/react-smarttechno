@@ -2,13 +2,13 @@ import React from 'react';
 import Select from 'react-select';
 
 const options = [
-  { value: 'HIGH', label: 'HIGH' },
-  { value: 'MEDIUM', label: 'MEDIUM' },
-  { value: 'LOW', label: 'LOW' },
-  { value: 'URGENT', label: 'URGENT' }
+  { value: 'DUE', label: 'DUE' },
+  { value: 'NA', label: 'NA' },
+  { value: 'OTHER', label: 'OTHER' },
+  { value: 'RECIEVED', label: 'RECIEVED' }
 ];
 
-class Selectnew  extends React.Component {
+class SelectPay  extends React.Component {
 
   
   state = {
@@ -26,8 +26,9 @@ class Selectnew  extends React.Component {
         onChange={this.handleChange}
         options={options}
         isClearable
+        defaultValue = {{ value: 'DUE', label: 'DUE' }}
       />
     );
   }
 }
-export default Selectnew
+export default SelectPay
