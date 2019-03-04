@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 
-const options = [
+const statoptions = [
   { value: 'COMPLETED', label: 'COMPLETED' },
   { value: 'IN PROGRESS', label: 'IN PROGRESS' },
   { value: 'PENDING', label: 'PENDING' }
@@ -23,7 +23,7 @@ class SelectStat  extends React.Component {
     return (
       <Select
         onChange={this.handleChange}
-        options={options}
+        options={statoptions}
         defaultValue = {{ value: 'PENDING', label: 'PENDING' }}
         isClearable
       />
