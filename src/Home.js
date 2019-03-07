@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import fire from './config/Fire';
 import Select from 'react-select'
-import DateNew from './components/DatePicker1';
 import "react-datepicker/dist/react-datepicker.css";
 import 'normalize.css'
+import DatePicker from "react-datepicker";
 
 document.body.style = 'background: ;';
 
@@ -392,6 +392,51 @@ class SelectAssign  extends React.Component {
     }
   }
 
+  //date
+
+  class DateNew extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        startDate: new Date(),
+        
+      };
+      this.handleChange = this.handleChange.bind(this);
+      // taskDate = this.date
+      console.log("date   "+taskDate)
+    }
+
+    
+    
+  
+    handleChange(date) {
+      this.setState({
+        startDate: date,
+        
+
+        
+      });
+      taskDate = date
+      console.log(taskDate)
+    }
+  
+    render() {
+      return (
+        <DatePicker
+          selected={this.state.startDate}
+          className= "form-control" 
+          dateFormat ="dd-MM-yyyy"    
+          minDate={new Date()}
+          
+          
+          onChange={this.handleChange}
+        />
+      );
+    }
+  }
+
+
+
 
  
   function FormatNumberLength(num, length) {
@@ -402,6 +447,7 @@ class SelectAssign  extends React.Component {
     return r;
 }
 var today = new Date();
+taskDate = new Date()
 var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 var taskTime = date+' '+time;
@@ -415,6 +461,12 @@ class Home extends Component {
 updatetaskname(){
   console.log(taskName)
 }
+
+tdat(){
+  alert(taskDate)
+}
+
+
 
 
 
@@ -494,7 +546,8 @@ updatetaskname(){
         taskAreaLine:taskAreaLine,
         taskNumber:taskNumber,
         taskRemarks:taskRemarks,
-        taskServiceInfo:taskServiceInfo
+        taskServiceInfo:taskServiceInfo,
+        taskDate:taskDate.getDate()+'-'+(taskDate.getMonth()+1)+'-'+taskDate.getFullYear()
         }
        
       tserrr.child(taskId).set(pushd);
@@ -626,11 +679,7 @@ if (authData) {
                     <label>Date</label>
                     <div class = "form-group" >
                     <DateNew
-                     className= "form-control" 
-                     todayButton={"Vandaag"} 
-                     selected={this.state.date} 
-                     
-                     onChange={this.handleChange} />
+                     />
                     </div>
                 </div>
             <div class="form-group">
