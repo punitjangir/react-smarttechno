@@ -3,11 +3,13 @@ import fire from './config/Fire';
 import Select from 'react-select'
 import DateNew from './components/DatePicker1';
 import "react-datepicker/dist/react-datepicker.css";
+import 'normalize.css'
 
 document.body.style = 'background: ;';
 
 var dataaa = [];
 var mapar = [];
+var taskassign = [];
 var testserc = [];
 const areaoptions = [
     { value: 'AGRA ROAD', label: 'AGRA ROAD' },
@@ -141,6 +143,15 @@ const  assign =  [
     { value: 'IN PROGRESS', label: 'IN PROGRESS' },
     { value: 'PENDING', label: 'PENDING' }
   ];
+
+
+  // variables 
+  var  z1, z2 ;
+  var z= "";
+  var taskArea, taskAreaLine,taskAssignedTo, taskBilled,taskDate,
+  taskId,taskImage,taskName,taskNumber,taskPaymentStatus,taskPrority,
+  taskRemarks,taskServiceInfo,taskServiceType,taskSignature,taskStatus,taskTime;
+
   
   class SelectStat  extends React.Component {
   
@@ -151,18 +162,23 @@ const  assign =  [
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      
+      if(selectedOption != null){
+      taskStatus = selectedOption.label
+      }
+      
     }
-     ree = (selectedOption) => {
-         alert(selectedOption.label)
-     }
+    
     render() {
       const { selectedOption } = this.state;
+      if(selectedOption==null){
+        taskStatus = "PENDING"
+      }
   
       return (
         <Select
           onChange={this.handleChange}
           options={statoptions}
-          onChange = {this.ree}
           defaultValue = {{ value: 'PENDING', label: 'PENDING' }}
           isClearable
         />
@@ -171,7 +187,7 @@ const  assign =  [
   }
 
   
-  
+ 
   
   
   class SelectServ  extends React.Component {
@@ -199,10 +215,6 @@ const  assign =  [
   
     
    
-    handleSubmit(event) {
-      alert('Your favorite flavor is: ' + this.state.value)
-      event.preventDefault()
-    }
     
     render() {
       
@@ -229,9 +241,19 @@ const  assign =  [
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      
+      if(selectedOption != null){
+      taskPaymentStatus = selectedOption.label
+      }
+
+      
     }
     render() {
       const { selectedOption } = this.state;
+
+      if(selectedOption==null){
+        taskPaymentStatus = "DUE"
+      }
   
       return (
         <Select
@@ -254,14 +276,24 @@ const  assign =  [
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      
+      if(selectedOption != null){
+      taskPrority = selectedOption.label
+      }
+      
     }
     render() {
       const { selectedOption } = this.state;
+
+      if(selectedOption==null){
+        taskPrority = "MEDIUM"
+      }
   
       return (
         <Select
           onChange={this.handleChange}
           options={newoptions}
+          defaultValue = {{value: "MEDIUM", label:"MEDIUM"}}
           isClearable
         />
       );
@@ -277,9 +309,18 @@ const  assign =  [
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      
+      if(selectedOption != null){
+      taskArea = selectedOption.label
+      }
+      
     }
     render() {
       const { selectedOption } = this.state;
+      if(selectedOption==null){
+        taskArea = ""
+        
+      }
   
       return (
         <Select
@@ -301,9 +342,19 @@ const  assign =  [
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      
+      
+      
+      if(selectedOption != null){
+        taskBilled = selectedOption.label
+        }
     }
+    
     render() {
       const { selectedOption } = this.state;
+      if(selectedOption==null){
+        taskBilled = "NA"
+      }
   
       return (
         <Select
@@ -325,6 +376,7 @@ class SelectAssign  extends React.Component {
     handleChange = (selectedOption) => {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption);
+      taskassign = selectedOption
     }
     render() {
       const { selectedOption } = this.state;
@@ -341,14 +393,114 @@ class SelectAssign  extends React.Component {
   }
 
 
+ 
+  function FormatNumberLength(num, length) {
+    var r = "" + num;
+    while (r.length < length) {
+        r = "0" + r;
+    }
+    return r;
+}
+var today = new Date();
+var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var taskTime = date+' '+time;
+
+//input field values
+
+
+
 class Home extends Component {
 
+updatetaskname(){
+  console.log(taskName)
+}
+
+
+
+
+
+
+  //input field values
+
+  
+
+
+
+
+
     valuesT = () => {
-        
+     
+      //service value
+      var i=0;  
+    var sez
+    for(i  ; i <testserc.length; i++){
+        if(i === 0){
+           sez = testserc[i].label
+          taskServiceType = sez
+        }
+        if(i !== 0){
+          sez = testserc[i].label
+          taskServiceType = taskServiceType+", "+sez
+        }
+    }
+    //task assign
+
+    var j =0;
+    var rezz
+    
+    for(j  ; j <taskassign.length; j++){
+      if(j === 0){
+        rezz = taskassign[j].label
+        taskAssignedTo = rezz
+      }
+      if(j !== 0){
+        rezz = taskassign[j].label
+        taskAssignedTo = taskAssignedTo+", "+rezz
+      }
+      alert(taskAssignedTo)
+    }
+  
+      
          
 
-        alert('home val : ' +testserc.length);
+        alert(z1)
+        var cr = parseInt(z1)
+
+        cr +=1
+        cr = FormatNumberLength(cr,4)
+        alert(cr)
+        z1 = cr.toString()
+        alert(z1 + " type of z1 : " +typeof z1)
+
+        var tseref = fire.database().ref('testcount');
+        tseref.child("vall").set(z1);
+     
+      taskId = 'ST'+z1
+      var tserrr = fire.database().ref('multiple');
+      var pushd = {
+        taskArea:taskArea,
+        taskBilled:taskBilled,
+        taskPaymentStatus:taskPaymentStatus,
+        taskStatus:taskStatus,
+        taskTime:taskTime,
+        taskPrority:taskPrority,
+        taskAssignedTo:taskAssignedTo,
+        taskServiceType:taskServiceType,
+        taskSignature: "",
+        taskImage:"",
+        taskId:taskId,
+        taskName:taskName,
+        taskAreaLine:taskAreaLine,
+        taskNumber:taskNumber,
+        taskRemarks:taskRemarks,
+        taskServiceInfo:taskServiceInfo
+        }
+       
+      tserrr.child(taskId).set(pushd);
+
     }
+  
         
 
     constructor(props){
@@ -365,6 +517,15 @@ ref.onAuthStateChanged(function(authData) {
 if (authData) {
   console.log("User " + fire.auth().currentUser.uid + " is logged in ");
   var reff = fire.database().ref('Service Type');
+  var tseref = fire.database().ref('testcount');
+  tseref.once('value', function(snapshot) {
+    snapshot.forEach(function(child){
+      console.log(child.key + ": " +child.val() +typeof child.val()+ typeof child.key)
+
+      z1 = child.val()
+    })
+  });
+
 
   reff.on('value', function(snapshot){
     var snaps1 = snapshot.val();
@@ -453,11 +614,13 @@ if (authData) {
             <h1 class = "alert alert-info " style = {{textAlign : "center"}}>Smart Techno<button class = "pull-right btn btn-dark"  onClick = {this.logout}>Logout</button></h1>
             <div class = "col-md-2" style = {{backgroundColor : "#777474"}}>
             <form >
-                
-                
+              
+
             <div class="form-group">
                 <label>Name</label>
-                <input className='filter-input'  type="text"class="form-control "  placeholder="Enter name "   />
+                <input className='filter-input' style = {{textTransform: 'uppercase'}}  
+                 onChange = {this.updatetaskname} onChange = {(evt) => { taskName = evt.target.value.toUpperCase()}} type="text"class="form-control " 
+                   placeholder="Enter name "   />
             </div>
             <div class="form-group" > 
                     <label>Date</label>
@@ -472,7 +635,7 @@ if (authData) {
                 </div>
             <div class="form-group">
             <label>Mobile Number</label>
-                <input   class="form-control"  placeholder="Enter Mobile Numbe" type = "number" /> 
+                <input   class="form-control" onChange = {(evt) => { taskNumber = evt.target.value.toUpperCase()}} id = "tasknum"  placeholder="Enter Mobile Numbe" type = "number" /> 
             </div>
          
 
@@ -490,25 +653,20 @@ if (authData) {
             </div>
             <div class="form-group">
             <label>Address line 1</label>
-            <input class = "form-control" placeholder = "Detailed Adress" type = "text" />
+            <input class = "form-control" onChange = {(evt) => { taskAreaLine = evt.target.value.toUpperCase()}} style = {{textTransform: 'uppercase'}} placeholder = "Detailed Adress" type = "text" />
             </div>
 
             {/* service type */}
 
             <div class="form-group">
                 <label>Service Type</label>
-            <SelectServ id = "name11"
-                
-            onChange =     {this.valuesT}
-            
-
-            
+            <SelectServ           
             />
             
             </div>
             <div class="form-group">
                 <label>Service Info</label>
-            <input class = "form-control" placeholder = "Service Info" type = "text " />
+            <input class = "form-control" onChange = {(evt) => { taskServiceInfo = evt.target.value.toUpperCase()}} style = {{textTransform: 'uppercase'}} placeholder = "Service Info" type = "text " />
             </div>
 
             {/* Assign */}
@@ -555,13 +713,13 @@ if (authData) {
 
              <div class="form-group">
                  <label> Remarks</label>
-                 <input class = "form-control" type = "text" placeholder = "Remarks" />
+                 <input class = "form-control" onChange = {(evt) => { taskRemarks = evt.target.value.toUpperCase()}}style = {{textTransform: 'uppercase'}} type = "text" placeholder = "Remarks" />
             </div>   
             
                 <div class="form-group">
                     <label></label>
                     <label></label>
-                    <button class = "form-control"  type = "button"  onClick={this.valuesT}>
+                    <button class = "form-control" type  = "button"  onClick={this.valuesT}>
                             Submit
                     </button>
                 </div>
