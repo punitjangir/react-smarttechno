@@ -320,6 +320,7 @@ const  assign =  [
       if(selectedOption==null){
         taskArea = ""
         
+        
       }
   
       return (
@@ -384,7 +385,7 @@ class SelectAssign  extends React.Component {
       return (
         <Select
           onChange={this.handleChange}
-          options={assign}
+          options={mapar}
           isMulti
           isClearable
         />
@@ -446,6 +447,7 @@ class SelectAssign  extends React.Component {
     }
     return r;
 }
+
 var today = new Date();
 taskDate = new Date()
 var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
@@ -458,13 +460,7 @@ var taskTime = date+' '+time;
 
 class Home extends Component {
 
-updatetaskname(){
-  console.log(taskName)
-}
 
-tdat(){
-  alert(taskDate)
-}
 
 
 
@@ -475,9 +471,24 @@ tdat(){
 
   //input field values
 
+ //validations 
+
+validtest = () =>{
+
+  if(taskassign == "" || testserc == "" || taskName == null || taskNumber==null ||
+  taskAreaLine == null || taskRemarks==null || taskServiceInfo == null){
+    alert('Select proper values ')
+    
+  }
   
+  
+  else{
+    this.valuesT()
+    window.location.reload()
+    
+  }
 
-
+}
 
 
 
@@ -521,9 +532,9 @@ tdat(){
 
         cr +=1
         cr = FormatNumberLength(cr,4)
-        alert(cr)
+        
         z1 = cr.toString()
-        alert(z1 + " type of z1 : " +typeof z1)
+        
 
         var tseref = fire.database().ref('testcount');
         tseref.child("vall").set(z1);
@@ -569,7 +580,7 @@ tdat(){
 ref.onAuthStateChanged(function(authData) {
 if (authData) {
   console.log("User " + fire.auth().currentUser.uid + " is logged in ");
-  var reff = fire.database().ref('Service Type');
+  var reff = fire.database().ref('Assign TO');
   var tseref = fire.database().ref('testcount');
   tseref.once('value', function(snapshot) {
     snapshot.forEach(function(child){
@@ -594,8 +605,8 @@ if (authData) {
         dataaa.forEach(function(element) {
             mapar.push({ label:element, value: element })
         });
-        console.log(dataaa +"  hii  " + dataaa.length);
-   var  parsee = JSON.stringify(mapar);
+        console.log(JSON.stringify(mapar) +"  hii  " + dataaa.length);
+  //  var  parsee = JSON.stringify(mapar);
     // console.log("hiii" +parsee);
         
         
@@ -768,7 +779,7 @@ if (authData) {
                 <div class="form-group">
                     <label></label>
                     <label></label>
-                    <button class = "form-control" type  = "button"  onClick={this.valuesT}>
+                    <button class = "form-control"  type = "button" onClick={this.validtest}>
                             Submit
                     </button>
                 </div>
