@@ -385,7 +385,7 @@ class SelectAssign  extends React.Component {
       return (
         <Select
           onChange={this.handleChange}
-          options={mapar}
+          options={assign}
           isMulti
           isClearable
         />
@@ -605,7 +605,7 @@ if (authData) {
         dataaa.forEach(function(element) {
             mapar.push({ label:element, value: element })
         });
-        console.log(JSON.stringify(mapar) +"  hii  " + dataaa.length);
+        console.log("  hii  " + dataaa.length);
   //  var  parsee = JSON.stringify(mapar);
     // console.log("hiii" +parsee);
         
